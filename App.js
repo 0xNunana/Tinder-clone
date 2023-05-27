@@ -1,12 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { NavigationContainer } from '@react-navigation/native'
+import { AuthProvider } from './src/hooks/useAuth';
+import StackNavigator from './src/components/StackNavigator';
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs()
 export default function App() {
+ 
+
   return (
-    <View className="bg-red-300 flex-1">
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   <NavigationContainer>
+    <AuthProvider>
+    <StackNavigator/>
+    </AuthProvider>
+    
+
+   </NavigationContainer>
   );
 }
 
