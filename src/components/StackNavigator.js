@@ -16,10 +16,18 @@ const StackNavigator = () => {
     <Stack.Navigator>
       {user ? (
         <>
+        <Stack.Group>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Chat" component={ChatScreen} options={{headerShown:false}}/>
+        </Stack.Group>
+       
         </>
-      ) :     <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/> }
+      ) :  
+      <Stack.Group>
+ <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
+      </Stack.Group>
+      
+      }
 {/*       
       <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Chat" component={ChatScreen} options={{headerShown:false}}/>
