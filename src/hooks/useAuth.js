@@ -8,23 +8,14 @@ const AuthContext =createContext({})
 
 
 export const AuthProvider  = ({children}) => {
-  // const [error,setError]=useState(null)
-  // const [user,setUser]=useState(null)
-  // const [loadingInitial,setLoadingInitial] =useState(true)
 
-  // useEffect(()=>
-  // onAuthStateChanged(auth,(user)=>{
-  //   if (user){
-  //     setUser(user)
-  //   }else{setUser(null)}
-  //   setLoadingInitial(false)
-  // }))
+  
   const [token, setToken] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId:ANDROID_KEY,
      expoClientId: Expo_KEY,
-  });
+  })
   
 
   useEffect(() => {

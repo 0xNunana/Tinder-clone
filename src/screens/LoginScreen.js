@@ -12,6 +12,7 @@ const LoginScreen = () => {
   const {request,promptAsync,user} = useAuth()
   const navigation = useNavigation()
  
+ 
 
   return (
     <View className="flex-1">

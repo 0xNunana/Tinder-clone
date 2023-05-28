@@ -1,5 +1,5 @@
 import { View, Text, Button, Image, TouchableOpacity,StyleSheet } from 'react-native'
-import React,{useContext,useRef} from 'react'
+import React,{useContext,useEffect,useRef} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import useAuth from '../hooks/useAuth'
@@ -36,14 +36,76 @@ const Data = [
     occupation:"Student",
     photoUrl:"https://scontent.facc1-1.fna.fbcdn.net/v/t1.6435-9/70338287_2430993086989035_4155830374452166656_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=174925&_nc_ohc=fA3r99g_s_QAX-q85Xm&_nc_ht=scontent.facc1-1.fna&oh=00_AfDym_iCB5vjjNgRuEUwq3YfrThaoh4YusAFbE9DOq6vkw&oe=6499D1EF",
     age:24,
+  },{id:5,
+    firstName:"Bright",
+    lastName:"Tawiah",
+    occupation:"Uber Drver",
+    photoUrl:"https://i.ibb.co/xS37Gkw/IMG-20181227-WA0029.jpg",
+    age:28,
+  },
+  {id:6,
+    firstName:"Eugenia",
+    lastName:"Gigi",
+    occupation:"Influencer",
+    photoUrl:"https://i.ibb.co/0j4NxDL/IMG-20230526-WA0064.jpg",
+    age:23,
+  },
+  
+  
+  {id:7,
+    firstName:"Chris",
+    lastName:"Asuka",
+    occupation:"Pilot",
+    photoUrl:"https://i.ibb.co/dQk1K1v/IMG-20220410-WA0069.jpg",
+    age:57,
+  },{id:8,
+    firstName:"Benedicta",
+    lastName:"Amoah",
+    occupation:"Engineer",
+    photoUrl:"https://i.ibb.co/1zBbRkq/IMG-20210607-WA0021.jpg",
+    age:26,
+  },{id:9,
+    firstName:"Richmond",
+    lastName:"Issahaku",
+    occupation:"Retired Virgin",
+    photoUrl:"https://i.ibb.co/wY8YXc2/IMG-20210621-WA0220.jpg",
+    age:29,
   },
 ]
+
+//to replace data with that from firebase
+//1. take a snapshot
+// useEffect(()=>{
+//   onSnapshot(doc(db,"users",user.uid),(snapshot)=>{
+//     if(!snapshot.exists()){
+//       navigation.navigate("Modal")
+//     }
+//   })
+// },[])
+//2. use the snapshot
+// useEffect(()=>{
+//   let unsub;
+//   const fetchProfiles =async ()=>{
+//     unsub= onSnapshot(collection(db,"users"),(snapshot)=>{
+//       setProfiles(
+//         snapshot.docs.filter((doc)=> doc.id !==user.uid).map((doc)=>({
+//           id:doc.id,
+//           ...doc.data
+//         }))
+//       )
+//     })
+//   }
+//   fetchProfiles()
+//   return unsub
+// },[])
 
 const HomeScreen = () => {
     const navigation = useNavigation()
     const {user,signout}=useAuth()
+    
 const swipeRef = useRef()
 
+console.log(user)
   return (
     <SafeAreaView className="flex-1 pb-4">
       {/* Header */}
@@ -53,11 +115,14 @@ const swipeRef = useRef()
         </TouchableOpacity>
 
 
-        <TouchableOpacity onPress={()=>navigation.navigate("Chat")}>
+        <TouchableOpacity onPress={()=>navigation.navigate("Modal")}>
           <Image source={require("../../assets/logo.png")} className="h-14 w-14"/>
         </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate("Match")}>
+      <Text>Matched</Text>
+        </TouchableOpacity>
 
-<TouchableOpacity >
+<TouchableOpacity onPress={()=>navigation.navigate("Chat")} >
 
 <Icon name='chatbubbles-sharp'
         size={30}
@@ -100,21 +165,29 @@ overlayLabels={{
   }
 }}
 containerStyle={{backgroundColor:"transparent" }}
-renderCard={card =>(
-  <View className="bg-white rounded-xl relaive h-3/4" key={card.id}>
+renderCard={(card)=>card ? (<View className="bg-white rounded-xl relative h-3/4" key={card.id}>
     
-      <Image source={{uri:card.photoUrl}} className="h-full w-full absolute top-0 rounded-xl"/>
-      <View className="bg-white w-full h-20 absolute bottom-0 flex-row justify-between px-6 py-2 rounded-b-xl items-center ">
-        <View>
-        <Text className="text-xl font-bold">{card.firstName}</Text>
-        <Text>{card.occupation}</Text>
-        </View>
-        <Text className="font-bold text-2xl">{card.age}</Text>
-      </View>
-   
-   
-  </View>
-  )}
+ <Image source={{uri:card.photoUrl}} className="h-full w-full absolute top-0 rounded-xl"/>
+ <View className="bg-white w-full h-20 absolute bottom-0 flex-row justify-between px-6 py-2 rounded-b-xl items-center ">
+  <View>
+   <Text className="text-xl font-bold">{card.firstName}</Text>
+   <Text>{card.occupation}</Text>
+   </View>
+   <Text className="font-bold text-2xl">{card.age}</Text>
+ </View>
+
+
+ </View>):(<View className="bg-white rounded-xl h-3/4 items-center justify-center" >
+    
+         <Image source={{uri:"https://links.papareact.com/6gb"}} className="h-40 w-40  rounded-xl p-5"/>
+      
+          
+           <Text className="font-bold text-2xl text-center">nO PROFILE</Text>
+        
+     
+     
+     </View>)}
+  
 
 />
 
